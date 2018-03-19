@@ -1,3 +1,5 @@
 data
 handwrittenmathsymbols.zip
 .*.swp
+venv
+__pycache__

@@ -1,4 +1,10 @@
 # Code Board
+
+> Note: This project is currently a work in progress. **I will try to document the dataset expansion tools ASAP.**
+> For now you can get the expand_data.py tool (at path ml/tools) to work correctly by extracting the dataset linked
+> below to a folder called ml/data. Soon I will have a tool to download and exend the whole dataset in one go.
+> Thank you for your patience :smiley:
+
 A mobile application that can take a picture of code on a white board and run it in real time
 
 Machine learning aspects will run on a Flask server using tensorflow. Actual learning will likely be done offline.

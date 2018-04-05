@@ -3,5 +3,5 @@ handwrittenmathsymbols.zip
 .*.swp
 venv
 __pycache__
-android
-
+*.h5
+.ipynb_checkpoints

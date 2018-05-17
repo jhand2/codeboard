@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from sklearn import svm, metrics
 import warnings
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore",category=FutureWarning)
@@ -7,6 +8,9 @@ with warnings.catch_warnings():
 
 
 class Network:
+    """
+    TOOD: Tweak archtecture for better training results
+    """
     def __init__(self, labels):
         # TODO: Regularization: dropout
 
@@ -14,11 +18,10 @@ class Network:
         self.batch_size = 256
         self.image_size = 45 ** 2
         self.layers = [
-            (128, "relu"),
-            (256, "relu"),
-            (256, "relu"),
-            (256, "relu"),
-            (128, "relu"),
+            (self.batch_size, "relu"),
+            (26, "relu"),
+            (52, "relu"),
+            (78, "relu"),
             (len(labels), None)
         ]
 
@@ -26,7 +29,7 @@ class Network:
         self.graph = tf.Graph()
         with self.graph.as_default():
             self.global_step = tf.Variable(0)
-            self.learning_rate = tf.train.exponential_decay(0.0001, self.global_step, self.batch_size, 0.95) 
+            self.learning_rate = tf.train.exponential_decay(0.00005, self.global_step, self.batch_size, 0.95) 
             self.weights = {}
             self.biases = {}
 
@@ -74,8 +77,10 @@ class Network:
                         tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.tf_train_labels, logits=logits))
             l2_regularization_penalty = 0.01
             l2_loss = 0
-            for i in range(len(self.layers)):
-                l2_loss += (l2_regularization_penalty * tf.nn.l2_loss(self.weights[i]))
+
+            # Comment out l2 regularization. I don't think I have enough layers for it to help
+            # for i in range(len(self.layers)):
+                # l2_loss += (l2_regularization_penalty * tf.nn.l2_loss(self.weights[i]))
 
             loss = nonreg_loss + l2_loss
 
